@@ -1,0 +1,283 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  _id: ID!
+  email: String!
+  password: String!
+  role: String!
+  sites: [String!]!
+  status: Boolean!
+  google: Boolean!
+}
+
+type Wear {
+  _id: ID!
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]!
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  status: Boolean
+  color: String!
+  sizes: [String!]
+}
+
+type Paint {
+  _id: ID!
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]!
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  status: Boolean
+  use: [String!]
+  color: [String!]
+}
+
+type Page {
+  _id: ID!
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+type Section {
+  _id: ID!
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+type Site {
+  _id: ID!
+  title: String!
+  domain: String!
+  logo: String!
+  numberPhone: String!
+  address: String!
+  categoryPage: String!
+  params: [Params!]!
+  pagePrimary: [PagePrimary!]!
+  pageSecondary: [PageSecondary!]
+  status: Boolean!
+}
+
+type PagePrimary {
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+type PageSecondary {
+  category: String!
+  subCategory: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+type Params {
+  category: String!
+  subCategory: String!
+}
+
+type Query {
+  user(_id: String!): User!
+  users: [User!]!
+  wear(_id: String!): Wear!
+  wears: [Wear!]!
+  paint(_id: String!): Paint!
+  paints: [Paint!]!
+  site(_id: String!): Site!
+  sites(input: ListInput!): [Site!]!
+  page(_id: String!): Page!
+  pages(input: ListInput!): [Page!]!
+  section(_id: String!): Section!
+  sections(input: ListInput!): [Section!]!
+}
+
+input ListInput {
+  """classical limit"""
+  limit: Float!
+
+  """classical offset"""
+  offset: Float!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
+  removeUser(input: UpdateUserInput!): User!
+  createWear(input: CreateWearInput!): Wear!
+  updateWear(input: UpdateWearInput!): Wear!
+  removeWear(input: UpdateWearInput!): Wear!
+  createPaint(input: CreatePaintInput!): Paint!
+  updatePaint(input: UpdatePaintInput!): Paint!
+  removePaint(input: UpdatePaintInput!): Paint!
+  createSite(input: CreateSiteInput!): Site!
+  updateSite(input: UpdateSiteInput!): Site!
+  removeSite(input: UpdateSiteInput!): Site!
+  addPage(input: CreatePageInput!): PagePrimary!
+  addSection(input: CreateSectionInput!): Site!
+  createPage(input: CreatePageInput!): Page!
+  updatePage(input: UpdatePageInput!): Page!
+  removePage(input: UpdatePageInput!): Page!
+  updateSection(input: UpdateSectionInput!): Section!
+  removeSection(input: UpdateSectionInput!): Section!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
+  role: String!
+}
+
+input UpdateUserInput {
+  email: String
+  password: String
+  role: String
+  _id: ID!
+}
+
+input CreateWearInput {
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  status: Boolean
+  color: String!
+  sizes: [String!]
+}
+
+input UpdateWearInput {
+  title: String
+  brand: String
+  description: String
+  image: [String!]
+  inStock: Float
+  slug: String
+  category: String
+  subCategory: String
+  price: Float
+  tags: [String!]
+  status: Boolean
+  color: String
+  sizes: [String!]
+  _id: ID!
+}
+
+input CreatePaintInput {
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  status: Boolean
+  use: [String!]
+  color: [String!]
+}
+
+input UpdatePaintInput {
+  title: String
+  brand: String
+  description: String
+  image: [String!]
+  inStock: Float
+  slug: String
+  category: String
+  subCategory: String
+  price: Float
+  tags: [String!]
+  status: Boolean
+  use: [String!]
+  color: [String!]
+  _id: ID!
+}
+
+input CreateSiteInput {
+  title: String!
+  domain: String!
+  logo: String!
+  numberPhone: String!
+  address: String!
+  categoryPage: String!
+  status: Boolean
+}
+
+input UpdateSiteInput {
+  title: String
+  domain: String
+  logo: String
+  numberPhone: String
+  address: String
+  categoryPage: String
+  status: Boolean
+  _id: ID!
+}
+
+input CreatePageInput {
+  site: String!
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+input CreateSectionInput {
+  site: String!
+  category: String!
+  subCategory: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+input UpdatePageInput {
+  site: String
+  title: String
+  href: String
+  description: String
+  image: String
+  imageAlt: String
+  _id: ID!
+}
+
+input UpdateSectionInput {
+  site: String
+  category: String
+  subCategory: String
+  description: String
+  image: String
+  imageAlt: String
+  _id: ID!
+}

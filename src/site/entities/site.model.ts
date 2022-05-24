@@ -4,6 +4,7 @@ import { AbstractModel } from 'src/common/abstract/abstract.model';
 import { Page } from './page.model';
 import { Section } from './section.model';
 import { AbstractDocument } from '../../common/abstract/abstract.schema';
+import { Wear } from '../../product/entities/wear.model';
 
 @ObjectType()
 export class Site extends AbstractModel {
@@ -28,6 +29,8 @@ export class Site extends AbstractModel {
   @Field(() => [PageSecondary], { nullable: true })
   readonly pageSecondary: PageSecondary[];
 
+  @Field(() => [Wear])
+  readonly wears: Wear[];
   @Field()
   readonly status: boolean;
 }

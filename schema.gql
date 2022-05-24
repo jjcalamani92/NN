@@ -12,58 +12,6 @@ type User {
   google: Boolean!
 }
 
-type Wear {
-  _id: ID!
-  title: String!
-  brand: String!
-  description: String!
-  image: [String!]!
-  inStock: Float!
-  slug: String
-  category: String!
-  subCategory: String!
-  price: Float!
-  tags: [String!]
-  status: Boolean
-  color: String!
-  sizes: [String!]
-}
-
-type Paint {
-  _id: ID!
-  title: String!
-  brand: String!
-  description: String!
-  image: [String!]!
-  inStock: Float!
-  slug: String
-  category: String!
-  subCategory: String!
-  price: Float!
-  tags: [String!]
-  status: Boolean
-  use: [String!]
-  color: [String!]
-}
-
-type Page {
-  _id: ID!
-  title: String!
-  href: String!
-  description: String!
-  image: String!
-  imageAlt: String!
-}
-
-type Section {
-  _id: ID!
-  title: String!
-  href: String!
-  description: String!
-  image: String!
-  imageAlt: String!
-}
-
 type Site {
   _id: ID!
   title: String!
@@ -75,6 +23,7 @@ type Site {
   params: [Params!]!
   pagePrimary: [PagePrimary!]!
   pageSecondary: [PageSecondary!]
+  wears: [Wear!]!
   status: Boolean!
 }
 
@@ -97,6 +46,60 @@ type PageSecondary {
 type Params {
   category: String!
   subCategory: String!
+}
+
+type Wear {
+  _id: ID!
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]!
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  site: Site!
+  status: Boolean
+  color: String!
+  sizes: [String!]
+}
+
+type Paint {
+  _id: ID!
+  title: String!
+  brand: String!
+  description: String!
+  image: [String!]!
+  inStock: Float!
+  slug: String
+  category: String!
+  subCategory: String!
+  price: Float!
+  tags: [String!]
+  site: Site!
+  status: Boolean
+  use: [String!]
+  color: [String!]
+}
+
+type Page {
+  _id: ID!
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
+}
+
+type Section {
+  _id: ID!
+  title: String!
+  href: String!
+  description: String!
+  image: String!
+  imageAlt: String!
 }
 
 type Query {
@@ -168,6 +171,7 @@ input CreateWearInput {
   subCategory: String!
   price: Float!
   tags: [String!]
+  site: String!
   status: Boolean
   color: String!
   sizes: [String!]
@@ -184,6 +188,7 @@ input UpdateWearInput {
   subCategory: String
   price: Float
   tags: [String!]
+  site: String
   status: Boolean
   color: String
   sizes: [String!]
@@ -201,6 +206,7 @@ input CreatePaintInput {
   subCategory: String!
   price: Float!
   tags: [String!]
+  site: String!
   status: Boolean
   use: [String!]
   color: [String!]
@@ -217,6 +223,7 @@ input UpdatePaintInput {
   subCategory: String
   price: Float
   tags: [String!]
+  site: String
   status: Boolean
   use: [String!]
   color: [String!]

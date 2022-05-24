@@ -1,4 +1,11 @@
-import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Resolver,
+  Query,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { Site, PagePrimary } from '../entities/site.model';
 import { SiteService } from '../service';
 import {
@@ -12,10 +19,14 @@ import { ListInput } from '../../common/dto/list.input';
 import { Page } from '../entities/page.model';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../../auth/guards/gql-auth.guard';
+import { WearService } from 'src/product/service';
 
 @Resolver(() => Site)
 export class SiteResolver {
-  constructor(private readonly siteService: SiteService) {}
+  constructor(
+    private readonly siteService: SiteService,
+    private readonly wearService: WearService,
+  ) {}
   @Mutation(() => Site)
   createSite(@Args('input') input: CreateSiteInput) {
     return this.siteService.createSite(input);
@@ -52,6 +63,11 @@ export class SiteResolver {
   @UseGuards(GqlAuthGuard)
   addSection(@Args('input') input: CreateSectionInput) {
     return this.siteService.addSection(input.site, input);
+  }
+
+  @ResolveField()
+  async wears(@Parent() parent: Site) {
+    return this.wearService.findBySiteId(parent._id);
   }
   // @Mutation(() => Site)
   // addSection(@Args('input') input: CreateSectionInput) {

@@ -30,6 +30,11 @@ export class WearService {
     return this.wearRepository.find({});
   }
 
+
+  async findBySiteId(siteId) {
+    return this.wearRepository.find({ site: siteId });
+  }
+
   private toModel(wearDocument: WearDocument): Wear {
     return {
       _id: wearDocument._id.toHexString(),
@@ -45,7 +50,8 @@ export class WearService {
       tags: wearDocument.tags,
       color: wearDocument.color,
       sizes: wearDocument.sizes,
-      status: wearDocument.status
+      status: wearDocument.status,
+      site: wearDocument.site
     };
   }
 }

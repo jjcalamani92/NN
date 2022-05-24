@@ -23,6 +23,8 @@ export class ProductInput {
   price: number;
   @Field(() => [String], { nullable: true })
   tags: string[];
+  @Field()
+  site: string;
   @Field({ nullable: true })
   status: boolean;
 }

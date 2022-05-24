@@ -15,6 +15,10 @@ import {
 } from './repository';
 import { SiteResolver, PageResolver, SectionResolver } from './resolver';
 import { SiteService, PageService, SectionService } from './service';
+import { WearService } from '../product/service/wear.service';
+import { WearRepository } from 'src/product/repository';
+import { Wear } from '../product/entities/wear.model';
+import { WearSchema } from 'src/product/entities';
 
 @Module({
   imports: [
@@ -31,6 +35,10 @@ import { SiteService, PageService, SectionService } from './service';
         name: Section.name,
         schema: SectionSchema,
       },
+      {
+        name: Wear.name,
+        schema: WearSchema,
+      },
     ]),
   ],
   providers: [
@@ -43,7 +51,9 @@ import { SiteService, PageService, SectionService } from './service';
     SectionRepository,
     SectionResolver,
     SectionService,
+    WearService,
+    WearRepository,
   ],
-  exports: [SiteRepository],
+  exports: [SiteRepository, SiteService],
 })
 export class SiteModule {}

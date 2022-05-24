@@ -1,11 +1,23 @@
-import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
+import {
+  Args,
+  Mutation,
+  Resolver,
+  Query,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { Wear } from '../entities/wear.model';
 import { WearService } from '../service';
 import { CreateWearInput, UpdateWearInput, GetWearArgs } from '../dto';
+import { Site } from '../../site/entities/site.model';
+import { SiteService } from '../../site/service/site.service';
 
 @Resolver(() => Wear)
 export class WearResolver {
-  constructor(private readonly wearService: WearService) {}
+  constructor(
+    private readonly wearService: WearService,
+    private readonly siteService: SiteService,
+  ) {}
   @Mutation(() => Wear)
   createWear(@Args('input') input: CreateWearInput) {
     return this.wearService.createWear(input);
@@ -29,5 +41,10 @@ export class WearResolver {
   @Query(() => [Wear], { name: 'wears' })
   async getWears() {
     return this.wearService.findAll();
+  }
+
+  @ResolveField(() => Site)
+  async site(@Parent() wear: any) {
+    return this.siteService.getSite(wear.site);
   }
 }

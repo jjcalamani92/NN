@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AbstractDocument } from '../../common/abstract/abstract.schema';
 import { PagePrimary, PageSecondary, Params } from './site.model';
+import mongoose from 'mongoose';
+import { Wear } from '../../product/entities/wear.model';
 
 @Schema({ timestamps: true, versionKey: false })
 export class SiteDocument extends AbstractDocument {
@@ -32,6 +34,9 @@ export class SiteDocument extends AbstractDocument {
 
   @Prop([PageSecondary])
   pageSecondary: PageSecondary[];
+
+  @Prop({ type: { type: mongoose.Schema.Types.ObjectId, ref: 'Wear' } })
+  wears: Wear[];
 
   @Prop({
     default: true,

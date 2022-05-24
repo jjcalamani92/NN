@@ -60,6 +60,7 @@ export class SiteService {
     return site;
   }
 
+
   // async addSection(id: string, pageT: string, section: any) {
   //   // const site = await this.siteRepository.update(
   //   //   { id, pages: { $elemMatch: pageT } },
@@ -93,6 +94,7 @@ export class SiteService {
       params: siteDocument.params,
       pagePrimary: siteDocument.pagePrimary,
       pageSecondary: siteDocument.pageSecondary,
+      wears: siteDocument.wears
     };
   }
 }

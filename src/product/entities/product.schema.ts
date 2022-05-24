@@ -1,5 +1,7 @@
 import { Prop, Schema } from '@nestjs/mongoose';
 import { AbstractDocument } from 'src/common/abstract';
+import mongoose from 'mongoose';
+import { Site } from '../../site/entities/site.model';
 
 @Schema({ timestamps: true, versionKey: false })
 export class ProductDocument extends AbstractDocument {
@@ -32,6 +34,9 @@ export class ProductDocument extends AbstractDocument {
 
   @Prop([String])
   tags: string[];
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Site.name })
+  site: Site | string;
 
   @Prop({
     default: true,

@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { AbstractModel } from 'src/common/abstract';
+import { Site } from '../../site/entities/site.model';
 
 @ObjectType()
 export class Product extends AbstractModel {
@@ -23,6 +24,9 @@ export class Product extends AbstractModel {
   readonly price: number;
   @Field(() => [String], { nullable: true })
   readonly tags: string[];
+  @Field(() => Site)
+  readonly site: Site | string;
+
   @Field({ nullable: true })
   readonly status: boolean;
 }

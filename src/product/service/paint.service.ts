@@ -45,7 +45,8 @@ export class PaintService {
       tags: paintDocument.tags,
       use: paintDocument.use,
       color: paintDocument.color,
-      status: paintDocument.status
+      status: paintDocument.status,
+      site: paintDocument.site,
     };
   }
 }

@@ -5,6 +5,7 @@ import { Page } from '../entities/page.model';
 import { Section } from '../entities/section.model';
 import { Params } from '../entities';
 import { PagePrimary, PageSecondary } from '../entities/site.model';
+import { Wear } from '../../product/entities/wear.model';
 
 @InputType()
 export class CreateSiteInput {
@@ -37,6 +38,7 @@ export class CreateSiteInput {
   pagePrimary: PagePrimary[];
   pageSecondary: PageSecondary[];
   params: Params[];
+  wears: Wear[];
 
   @Field({ nullable: true })
   status: boolean;

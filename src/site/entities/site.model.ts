@@ -20,8 +20,13 @@ export class Site extends AbstractModel {
   readonly address: string;
   @Field()
   readonly categoryPage: string;
-  @Field(() => [Params])
-  readonly params: Params[];
+  
+  @Field(() => [ParamsOne])
+  readonly paramsOne: ParamsOne[];
+
+  @Field(() => [ParamsTwo])
+  readonly paramsTwo: ParamsTwo[];
+
 
   @Field(() => [PagePrimary])
   readonly pagePrimary: PagePrimary[];
@@ -61,19 +66,23 @@ export class PageSecondary {
   image: string;
   @Field()
   imageAlt: string;
-
-  // @Field(() => GraphQLJSONObject, { nullable: true })
-  // readonly
-  // @Field(() => Params, { nullable: true })
-  // @Field(() => Params)
-  // params: Params;
+  @Field()
+  hrefCategory: string;
+  @Field()
+  hrefSubCategory: string;
 }
 
 
 @ObjectType()
-export class Params {
+export class ParamsTwo {
   @Field()
   readonly category: string;
   @Field()
   readonly subCategory: string;
+}
+
+@ObjectType()
+export class ParamsOne {
+  @Field()
+  readonly pages: string;
 }

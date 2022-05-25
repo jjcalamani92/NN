@@ -12,10 +12,9 @@ export class CreatePaintInput extends ProductInput {
 
 @InputType()
 export class UpdatePaintInput extends PartialType(CreatePaintInput) {
-  @Field(() => ID)
-  @IsMongoId()
-  readonly _id: string;
+  @Field({ nullable: true })
+  status: boolean;
 }
 
 @ArgsType()
-export class GetPaintArgs extends GetProductArgs {}
+export class GetPaintArgs extends PartialType(GetProductArgs) {}

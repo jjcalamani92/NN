@@ -4,10 +4,10 @@ import { Paint, PaintSchema, Wear, WearSchema } from './entities';
 import { PaintRepository, WearRepository } from './repository';
 import { WearResolver, PaintResolver } from './resolver';
 import { PaintService, WearService } from './service';
-import { SiteService } from '../site/service/site.service';
+import { SiteService } from '../site/site.service';
 import { Site } from '../site/entities/site.model';
 import { SiteSchema } from '../site/entities/site.schema';
-import { SiteRepository } from '../site/repository/site.repository';
+import { SiteRepository } from '../site/site.repository';
 
 @Module({
   imports: [

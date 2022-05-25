@@ -5,7 +5,6 @@
 type User {
   _id: ID!
   email: String!
-  password: String!
   role: String!
   sites: [String!]!
   status: Boolean!
@@ -20,7 +19,8 @@ type Site {
   numberPhone: String!
   address: String!
   categoryPage: String!
-  params: [Params!]!
+  paramsOne: [ParamsOne!]!
+  paramsTwo: [ParamsTwo!]!
   pagePrimary: [PagePrimary!]!
   pageSecondary: [PageSecondary!]
   wears: [Wear!]!
@@ -41,11 +41,17 @@ type PageSecondary {
   description: String!
   image: String!
   imageAlt: String!
+  hrefCategory: String!
+  hrefSubCategory: String!
 }
 
-type Params {
+type ParamsTwo {
   category: String!
   subCategory: String!
+}
+
+type ParamsOne {
+  pages: String!
 }
 
 type Wear {
@@ -84,37 +90,15 @@ type Paint {
   color: [String!]
 }
 
-type Page {
-  _id: ID!
-  title: String!
-  href: String!
-  description: String!
-  image: String!
-  imageAlt: String!
-}
-
-type Section {
-  _id: ID!
-  title: String!
-  href: String!
-  description: String!
-  image: String!
-  imageAlt: String!
-}
-
 type Query {
   user(_id: String!): User!
   users: [User!]!
-  wear(_id: String!): Wear!
+  wear(_id: String): Wear!
   wears: [Wear!]!
-  paint(_id: String!): Paint!
+  paint(_id: String): Paint!
   paints: [Paint!]!
   site(_id: String!): Site!
   sites(input: ListInput!): [Site!]!
-  page(_id: String!): Page!
-  pages(input: ListInput!): [Page!]!
-  section(_id: String!): Section!
-  sections(input: ListInput!): [Section!]!
 }
 
 input ListInput {
@@ -127,24 +111,19 @@ input ListInput {
 
 type Mutation {
   createUser(input: CreateUserInput!): User!
-  updateUser(input: UpdateUserInput!): User!
-  removeUser(input: UpdateUserInput!): User!
+  updateUser(_id: String!, input: UpdateUserInput!): User!
+  removeUser(_id: String!): String!
   createWear(input: CreateWearInput!): Wear!
-  updateWear(input: UpdateWearInput!): Wear!
-  removeWear(input: UpdateWearInput!): Wear!
+  updateWear(_id: String, input: UpdateWearInput!): Wear!
+  removeWear(_id: String): String!
   createPaint(input: CreatePaintInput!): Paint!
-  updatePaint(input: UpdatePaintInput!): Paint!
-  removePaint(input: UpdatePaintInput!): Paint!
+  updatePaint(_id: String, input: UpdatePaintInput!): Paint!
+  removePaint(_id: String): String!
   createSite(input: CreateSiteInput!): Site!
-  updateSite(input: UpdateSiteInput!): Site!
-  removeSite(input: UpdateSiteInput!): Site!
-  addPage(input: CreatePageInput!): PagePrimary!
-  addSection(input: CreateSectionInput!): Site!
-  createPage(input: CreatePageInput!): Page!
-  updatePage(input: UpdatePageInput!): Page!
-  removePage(input: UpdatePageInput!): Page!
-  updateSection(input: UpdateSectionInput!): Section!
-  removeSection(input: UpdateSectionInput!): Section!
+  updateSite(_id: String!, input: UpdateSiteInput!): Site!
+  removeSite(_id: String!): String!
+  addPage(_id: String!, input: CreatePageInput!): Site!
+  addSection(_id: String!, input: CreateSectionInput!): Site!
 }
 
 input CreateUserInput {
@@ -154,10 +133,7 @@ input CreateUserInput {
 }
 
 input UpdateUserInput {
-  email: String
-  password: String
-  role: String
-  _id: ID!
+  email: String!
 }
 
 input CreateWearInput {
@@ -166,13 +142,11 @@ input CreateWearInput {
   description: String!
   image: [String!]
   inStock: Float!
-  slug: String
   category: String!
   subCategory: String!
   price: Float!
   tags: [String!]
   site: String!
-  status: Boolean
   color: String!
   sizes: [String!]
 }
@@ -183,16 +157,14 @@ input UpdateWearInput {
   description: String
   image: [String!]
   inStock: Float
-  slug: String
   category: String
   subCategory: String
   price: Float
   tags: [String!]
   site: String
-  status: Boolean
   color: String
   sizes: [String!]
-  _id: ID!
+  status: Boolean
 }
 
 input CreatePaintInput {
@@ -201,13 +173,11 @@ input CreatePaintInput {
   description: String!
   image: [String!]
   inStock: Float!
-  slug: String
   category: String!
   subCategory: String!
   price: Float!
   tags: [String!]
   site: String!
-  status: Boolean
   use: [String!]
   color: [String!]
 }
@@ -218,16 +188,14 @@ input UpdatePaintInput {
   description: String
   image: [String!]
   inStock: Float
-  slug: String
   category: String
   subCategory: String
   price: Float
   tags: [String!]
   site: String
-  status: Boolean
   use: [String!]
   color: [String!]
-  _id: ID!
+  status: Boolean
 }
 
 input CreateSiteInput {
@@ -248,43 +216,19 @@ input UpdateSiteInput {
   address: String
   categoryPage: String
   status: Boolean
-  _id: ID!
 }
 
 input CreatePageInput {
-  site: String!
   title: String!
-  href: String!
   description: String!
   image: String!
   imageAlt: String!
 }
 
 input CreateSectionInput {
-  site: String!
   category: String!
   subCategory: String!
   description: String!
   image: String!
   imageAlt: String!
-}
-
-input UpdatePageInput {
-  site: String
-  title: String
-  href: String
-  description: String
-  image: String
-  imageAlt: String
-  _id: ID!
-}
-
-input UpdateSectionInput {
-  site: String
-  category: String
-  subCategory: String
-  description: String
-  image: String
-  imageAlt: String
-  _id: ID!
 }

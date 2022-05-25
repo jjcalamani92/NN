@@ -7,9 +7,6 @@ export class User extends AbstractModel {
   email: string;
 
   @Field()
-  password: string;
-
-  @Field()
   role: string;
 
   @Field(() => [String])

@@ -7,5 +7,5 @@ export class GetUserArgs {
   @IsString()
   @IsMongoId()
   @IsNotEmpty()
-  _id: string;
+  readonly _id: string;
 }

@@ -3,16 +3,10 @@ import { IsMongoId, IsString, IsNotEmpty } from 'class-validator';
 
 @InputType()
 export class CreatePageInput {
-
-  @Field()
-  site: string;
-
   @Field()
   @IsString()
   title: string;
 
-  @Field()
-  @IsString()
   href: string;
 
   @Field()
@@ -29,18 +23,18 @@ export class CreatePageInput {
 
 }
 
-@InputType()
-export class UpdatePageInput extends PartialType(CreatePageInput) {
-  @Field(() => ID)
-  @IsMongoId()
-  readonly _id: string;
-}
+// @InputType()
+// export class UpdatePageInput extends PartialType(CreatePageInput) {
+//   @Field(() => ID)
+//   @IsMongoId()
+//   readonly _id: string;
+// }
 
-@ArgsType()
-export class GetPageArgs {
-  @Field()
-  @IsMongoId()
-  @IsString()
-  @IsNotEmpty()
-  _id: string;
-}
+// @ArgsType()
+// export class GetPageArgs {
+//   @Field()
+//   @IsMongoId()
+//   @IsString()
+//   @IsNotEmpty()
+//   _id: string;
+// }

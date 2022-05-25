@@ -2,6 +2,7 @@ import {
   Injectable,
   NotFoundException,
   UnauthorizedException,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { CreateUserInput, GetUserArgs, UpdateUserInput } from './dto';
 import { User, UserDocument } from './entities';
@@ -13,7 +14,7 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async createUser(input: CreateUserInput) {
-    await this.validateCreateUserData(input);
+    await this.validateDataUser(input);
     const dataDocument = await this.userRepository.create({
       ...input,
       password: await bcrypt.hash(input.password, 10),
@@ -21,11 +22,16 @@ export class UserService {
     return this.toModel(dataDocument);
   }
 
-  async validateCreateUserData(input: CreateUserInput) {
-    try {
-      await this.userRepository.findOne({ email: input.email });
-      throw new NotFoundException('Email already exists.');
-    } catch (err) {}
+  private async validateDataUser(input: CreateUserInput) {
+    const data = await this.userRepository.find({
+      email: input.email,
+      status: true,
+    });
+    if (data.length !== 0) {
+      throw new UnprocessableEntityException(
+        `El email con ${input.email} no existe`,
+      );
+    }
   }
 
   async getUser(getuserArgs: GetUserArgs) {
@@ -33,14 +39,18 @@ export class UserService {
     return this.toModel(dataDocument);
   }
 
-  async update(id: string, input: UpdateUserInput) {
+  async updateUser(id: GetUserArgs, input: UpdateUserInput) {
+    await this.validateData(id);
     const dataDocument = await this.userRepository.findOneAndUpdate(id, input);
     return this.toModel(dataDocument);
   }
 
-  async remove(id: string) {
-    const dataDocument = await this.userRepository.remove(id);
-    return this.toModel(dataDocument);
+  async removeUser(id: GetUserArgs) {
+    await this.validateData(id);
+    await this.userRepository.findOneAndUpdate(id, {
+      status: false,
+    });
+    return 'usuario elmininado';
   }
 
   findAll() {
@@ -59,11 +69,20 @@ export class UserService {
     return this.toModel(userDocument);
   }
 
+  private async validateData(id: GetUserArgs) {
+    const data = await this.userRepository.find({
+      _id: id,
+      status: true,
+    });
+    if (data.length === 0) {
+      throw new UnprocessableEntityException(`El data con ${id} no existe`);
+    }
+  }
+
   private toModel(userDocument: UserDocument): User {
     return {
       _id: userDocument._id.toHexString(),
       email: userDocument.email,
-      password: userDocument.password,
       role: userDocument.role,
       sites: userDocument.sites,
       google: userDocument.google,

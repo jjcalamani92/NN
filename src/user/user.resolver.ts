@@ -13,13 +13,13 @@ export class UserResolver {
   }
 
   @Mutation(() => User)
-  updateUser(@Args('input') input: UpdateUserInput) {
-    return this.userService.update(input._id, input);
+  updateUser(@Args() id: GetUserArgs, @Args('input') input: UpdateUserInput) {
+    return this.userService.updateUser(id, input);
   }
 
-  @Mutation(() => User)
-  removeUser(@Args('input') input: UpdateUserInput) {
-    return this.userService.remove(input._id);
+  @Mutation(() => String)
+  removeUser(@Args() id: GetUserArgs) {
+    return this.userService.removeUser(id);
   }
 
   @Query(() => User, { name: 'user' })

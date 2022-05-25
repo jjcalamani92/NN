@@ -5,31 +5,45 @@ import { Site } from '../../site/entities/site.model';
 
 @Schema({ timestamps: true, versionKey: false })
 export class ProductDocument extends AbstractDocument {
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   title: string;
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   brand: string;
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   description: string;
 
   @Prop([String])
   image: string[];
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   inStock: number;
 
   @Prop()
   slug: string;
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   category: string;
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   subCategory: string;
 
-  @Prop()
+  @Prop({
+    trim: true,
+  })
   price: number;
 
   @Prop([String])
@@ -43,4 +57,3 @@ export class ProductDocument extends AbstractDocument {
   })
   status: boolean;
 }
-

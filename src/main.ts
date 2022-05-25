@@ -12,7 +12,7 @@ async function bootstrap() {
   app.useGlobalFilters(new ExceptionFilter());
   app.use(
     cors({
-      origin: 'https://3tfth2.sse.codesandbox.io',
+      origin: ['https://3tfth2.sse.codesandbox.io', 'http://localhost:3000'],
       credentials: true,
     }),
   );

@@ -1,5 +1,4 @@
 import { Field, InputType, PartialType, ID, ArgsType } from '@nestjs/graphql';
-import { IsMongoId, IsNotEmpty, IsString } from 'class-validator';
 import { ProductInput, GetProductArgs } from './product.input';
 
 @InputType()
@@ -12,12 +11,9 @@ export class CreateWearInput extends ProductInput {
 
 @InputType()
 export class UpdateWearInput extends PartialType(CreateWearInput) {
-  @Field(() => ID)
-  @IsNotEmpty()
-  @IsString()
-  @IsMongoId()
-  readonly _id: string;
+  @Field({ nullable: true })
+  status: boolean;
 }
 
 @ArgsType()
-export class GetWearArgs extends GetProductArgs {}
+export class GetWearArgs extends PartialType(GetProductArgs) {}

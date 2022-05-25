@@ -1,24 +1,14 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  Page,
-  PageSchema,
-  Section,
-  SectionSchema,
-  Site,
-  SiteSchema,
-} from './entities';
-import {
-  PageRepository,
-  SectionRepository,
-  SiteRepository,
-} from './repository';
-import { SiteResolver, PageResolver, SectionResolver } from './resolver';
-import { SiteService, PageService, SectionService } from './service';
+import { Site, SiteSchema } from './entities';
+
 import { WearService } from '../product/service/wear.service';
 import { WearRepository } from 'src/product/repository';
 import { Wear } from '../product/entities/wear.model';
 import { WearSchema } from 'src/product/entities';
+import { SiteRepository } from './site.repository';
+import { SiteResolver } from './site.resolver';
+import { SiteService } from './site.service';
 
 @Module({
   imports: [
@@ -26,14 +16,6 @@ import { WearSchema } from 'src/product/entities';
       {
         name: Site.name,
         schema: SiteSchema,
-      },
-      {
-        name: Page.name,
-        schema: PageSchema,
-      },
-      {
-        name: Section.name,
-        schema: SectionSchema,
       },
       {
         name: Wear.name,
@@ -45,12 +27,6 @@ import { WearSchema } from 'src/product/entities';
     SiteRepository,
     SiteResolver,
     SiteService,
-    PageRepository,
-    PageResolver,
-    PageService,
-    SectionRepository,
-    SectionResolver,
-    SectionService,
     WearService,
     WearRepository,
   ],

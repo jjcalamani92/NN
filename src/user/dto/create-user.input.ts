@@ -27,5 +27,5 @@ export class CreateUserInput {
   role: string;
   status: boolean;
   google: boolean;
-  sites: string[]
+  sites: string[];
 }

@@ -13,7 +13,6 @@ export class ProductInput {
   image: string[];
   @Field()
   inStock: number;
-  @Field({ nullable: true })
   slug: string;
   @Field()
   category: string;
@@ -25,7 +24,6 @@ export class ProductInput {
   tags: string[];
   @Field()
   site: string;
-  @Field({ nullable: true })
   status: boolean;
 }
 
@@ -39,8 +37,6 @@ export class UpdateProductInput extends PartialType(ProductInput) {
 @ArgsType()
 export class GetProductArgs {
   @Field()
-  @IsString()
   @IsMongoId()
-  @IsNotEmpty()
-  _id: string;
+  readonly _id: string;
 }

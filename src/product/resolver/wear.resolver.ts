@@ -10,7 +10,7 @@ import { Wear } from '../entities/wear.model';
 import { WearService } from '../service';
 import { CreateWearInput, UpdateWearInput, GetWearArgs } from '../dto';
 import { Site } from '../../site/entities/site.model';
-import { SiteService } from '../../site/service/site.service';
+import { SiteService } from '../../site/site.service';
 
 @Resolver(() => Wear)
 export class WearResolver {
@@ -24,18 +24,18 @@ export class WearResolver {
   }
 
   @Mutation(() => Wear)
-  updateWear(@Args('input') input: UpdateWearInput) {
-    return this.wearService.update(input._id, input);
+  updateWear(@Args() id: GetWearArgs, @Args('input') input: UpdateWearInput) {
+    return this.wearService.updateWear(id, input);
   }
 
-  @Mutation(() => Wear)
-  removeWear(@Args('input') input: UpdateWearInput) {
-    return this.wearService.remove(input._id);
+  @Mutation(() => String)
+  removeWear(@Args() id: GetWearArgs) {
+    return this.wearService.removeWear(id);
   }
 
   @Query(() => Wear, { name: 'wear' })
-  async getWear(@Args() getWearArgs: GetWearArgs) {
-    return this.wearService.getWear(getWearArgs);
+  async getWear(@Args() id: GetWearArgs) {
+    return this.wearService.getWear(id);
   }
 
   @Query(() => [Wear], { name: 'wears' })

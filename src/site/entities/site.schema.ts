@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { AbstractDocument } from '../../common/abstract/abstract.schema';
-import { PagePrimary, PageSecondary, Params } from './site.model';
+import { PagePrimary, PageSecondary, ParamsOne, ParamsTwo } from './site.model';
 import mongoose from 'mongoose';
 import { Wear } from '../../product/entities/wear.model';
 
@@ -25,9 +25,13 @@ export class SiteDocument extends AbstractDocument {
 
   @Prop()
   categoryPage: string;
+  
+  @Prop([ParamsOne])
+  paramsOne: ParamsOne[];
 
-  @Prop([Params])
-  params: Params[];
+  @Prop([ParamsTwo])
+  paramsTwo: ParamsTwo[];
+
 
   @Prop([PagePrimary])
   pagePrimary: PagePrimary[];

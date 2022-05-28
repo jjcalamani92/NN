@@ -8,6 +8,7 @@ import { CreateUserInput, GetUserArgs, UpdateUserInput } from './dto';
 import { User, UserDocument } from './entities';
 import { UserRepository } from './user.repository';
 import * as bcrypt from 'bcrypt';
+import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -28,8 +29,8 @@ export class UserService {
       status: true,
     });
     if (data.length !== 0) {
-      throw new UnprocessableEntityException(
-        `El email con ${input.email} no existe`,
+      throw new BadRequestException(
+        `El email ${input.email} ya esta registrado`,
       );
     }
   }

@@ -16,13 +16,20 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async findOneAndUpdate(
-    filterQuery: FilterQuery<TDocument> | string,
+    filterQuery: FilterQuery<TDocument>,
+    // filterQuery: FilterQuery<TDocument>,
     update: UpdateQuery<TDocument>,
+    options: Record<string, unknown> = { lean: true, new: true },
   ) {
-    const document = await this.model.findByIdAndUpdate(filterQuery, update, {
-      lean: true,
-      new: true,
-    });
+    const document = await this.model.findByIdAndUpdate(
+      filterQuery,
+      update,
+      options,
+    );
+    // {
+    //   lean: true,
+    //   new: true,
+    // }
     if (!document) {
       this.logger.warn('Document not found with filterQuery', filterQuery);
       throw new NotFoundException('Document not found.');

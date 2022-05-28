@@ -11,6 +11,8 @@ import { WearService } from '../service';
 import { CreateWearInput, UpdateWearInput, GetWearArgs } from '../dto';
 import { Site } from '../../site/entities/site.model';
 import { SiteService } from '../../site/site.service';
+import { UseGuards } from '@nestjs/common';
+import JwtAuthGuard from 'src/auth/guards/jwt-auth.guard';
 
 @Resolver(() => Wear)
 export class WearResolver {
@@ -19,6 +21,7 @@ export class WearResolver {
     private readonly siteService: SiteService,
   ) {}
   @Mutation(() => Wear)
+  // @UseGuards(JwtAuthGuard)
   createWear(@Args('input') input: CreateWearInput) {
     return this.wearService.createWear(input);
   }

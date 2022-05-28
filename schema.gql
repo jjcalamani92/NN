@@ -19,39 +19,30 @@ type Site {
   numberPhone: String!
   address: String!
   categoryPage: String!
-  paramsOne: [ParamsOne!]!
-  paramsTwo: [ParamsTwo!]!
-  pagePrimary: [PagePrimary!]!
-  pageSecondary: [PageSecondary!]
-  wears: [Wear!]!
+  featured: [Featured!]!
+  sections: [Section!]!
+  pages: [Page!]!
+  wears: [String!]!
   status: Boolean!
 }
 
-type PagePrimary {
-  title: String!
+type Featured {
+  name: String!
   href: String!
-  description: String!
-  image: String!
+  imageSrc: String!
   imageAlt: String!
 }
 
-type PageSecondary {
-  category: String!
-  subCategory: String!
-  description: String!
-  image: String!
-  imageAlt: String!
-  hrefCategory: String!
-  hrefSubCategory: String!
+type Section {
+  section: String!
+  href_s: String!
+  name: String!
+  href_n: String!
 }
 
-type ParamsTwo {
-  category: String!
-  subCategory: String!
-}
-
-type ParamsOne {
-  pages: String!
+type Page {
+  name: String!
+  href: String!
 }
 
 type Wear {
@@ -122,8 +113,9 @@ type Mutation {
   createSite(input: CreateSiteInput!): Site!
   updateSite(_id: String!, input: UpdateSiteInput!): Site!
   removeSite(_id: String!): String!
-  addPage(_id: String!, input: CreatePageInput!): Site!
-  addSection(_id: String!, input: CreateSectionInput!): Site!
+  addPage(_id: String!, input: AddPageInput!): Site!
+  addSection(_id: String!, input: AddSectionInput!): Site!
+  addFeatured(_id: String!, input: AddFeaturedInput!): Site!
 }
 
 input CreateUserInput {
@@ -218,17 +210,17 @@ input UpdateSiteInput {
   status: Boolean
 }
 
-input CreatePageInput {
-  title: String!
-  description: String!
-  image: String!
-  imageAlt: String!
+input AddPageInput {
+  name: String!
 }
 
-input CreateSectionInput {
-  category: String!
-  subCategory: String!
-  description: String!
-  image: String!
+input AddSectionInput {
+  section: String!
+  name: String!
+}
+
+input AddFeaturedInput {
+  name: String!
+  imageSrc: String!
   imageAlt: String!
 }

@@ -1,10 +1,6 @@
-import { Field, ObjectType, InputType } from '@nestjs/graphql';
-import { GraphQLJSONObject } from 'graphql-type-json';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { AbstractModel } from 'src/common/abstract/abstract.model';
-import { Page } from './page.model';
-import { Section } from './section.model';
-import { AbstractDocument } from '../../common/abstract/abstract.schema';
-import { Wear } from '../../product/entities/wear.model';
+import { Wear } from '../../ecommerce/entities/wear.model';
 
 @ObjectType()
 export class Site extends AbstractModel {
@@ -20,69 +16,67 @@ export class Site extends AbstractModel {
   readonly address: string;
   @Field()
   readonly categoryPage: string;
-  
-  @Field(() => [ParamsOne])
-  readonly paramsOne: ParamsOne[];
 
-  @Field(() => [ParamsTwo])
-  readonly paramsTwo: ParamsTwo[];
+  @Field(() => [Featured])
+  readonly featured: Featured[];
 
+  @Field(() => [Section])
+  readonly sections: Section[];
 
-  @Field(() => [PagePrimary])
-  readonly pagePrimary: PagePrimary[];
+  @Field(() => [Page])
+  readonly pages: Page[];
 
-  @Field(() => [PageSecondary], { nullable: true })
-  readonly pageSecondary: PageSecondary[];
-
-  @Field(() => [Wear])
+  @Field(() => [String])
   readonly wears: Wear[];
   @Field()
   readonly status: boolean;
 }
 
 @ObjectType()
-export class PagePrimary {
+export class Category {
   @Field()
-  title: string;
+  name: string;
+
+  @Field(() => [Featured])
+  readonly featured: Featured[];
+
+  @Field(() => [Section])
+  readonly sections: Section[];
+}
+
+@ObjectType()
+export class Featured {
+  @Field()
+  name: string;
   @Field()
   href: string;
   @Field()
-  description: string;
-  @Field()
-  image: string;
+  imageSrc: string;
   @Field()
   imageAlt: string;
 }
 
 @ObjectType()
-export class PageSecondary {
+export class Section {
   @Field()
-  category: string;
+  section: string;
   @Field()
-  subCategory: string;
+  href_s: string;
   @Field()
-  description: string;
+  name: string;
   @Field()
-  image: string;
-  @Field()
-  imageAlt: string;
-  @Field()
-  hrefCategory: string;
-  @Field()
-  hrefSubCategory: string;
-}
-
-
-@ObjectType()
-export class ParamsTwo {
-  @Field()
-  readonly category: string;
-  @Field()
-  readonly subCategory: string;
+  href_n: string;
+  // @Field()
+  // description_name:
 }
 
 @ObjectType()
-export class ParamsOne {
+export class Item {
   @Field()
-  readonly pages: string;
+  name: string;
+  @Field()
+  href: string;
 }
+
+@ObjectType()
+export class Page extends Item {}

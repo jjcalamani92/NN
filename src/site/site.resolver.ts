@@ -6,19 +6,19 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { Site, PagePrimary } from './entities/site.model';
+import { Site, Category, Featured } from './entities';
 import {
   CreateSiteInput,
   UpdateSiteInput,
   GetSiteArgs,
-  CreatePageInput,
-  CreateSectionInput,
+  AddCategoryInput,
+  AddFeaturedInput,
+  GetFeaturesArgs,
 } from './dto';
 import { ListInput } from '../common/dto/list.input';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '../auth/guards/gql-auth.guard';
-import { WearService } from 'src/product/service';
+import { WearService } from 'src/ecommerce/service';
 import { SiteService } from './site.service';
+import { AddPageInput, AddSectionInput } from './dto/create-site.input';
 
 @Resolver(() => Site)
 export class SiteResolver {
@@ -55,23 +55,52 @@ export class SiteResolver {
   }
 
   @Mutation(() => Site)
-  addPage(@Args() id: GetSiteArgs, @Args('input') input: CreatePageInput) {
+  addPage(@Args() id: GetSiteArgs, @Args('input') input: AddPageInput) {
     return this.siteService.addPage(id, input);
   }
 
   @Mutation(() => Site)
-  // @UseGuards(GqlAuthGuard)
-  addSection(
-    @Args() id: GetSiteArgs,
-    @Args('input') input: CreateSectionInput,
-  ) {
+  addSection(@Args() id: GetSiteArgs, @Args('input') input: AddSectionInput) {
     return this.siteService.addSection(id, input);
   }
 
-  @ResolveField()
-  async wears(@Parent() parent: Site) {
-    return this.wearService.findBySiteId(parent._id);
+  @Mutation(() => Site)
+  addFeatured(@Args() id: GetSiteArgs, @Args('input') input: AddFeaturedInput) {
+    return this.siteService.addFeatured(id, input);
   }
+  // @Mutation(() => Site)
+  // addItems(@Args() id: GetSiteArgs, @Args('input') input: AddPageInput) {
+  //   return this.siteService.addItems(id, input);
+  // }
+
+  // @Mutation(() => Featured)
+  // addFeatured(
+  //   @Args() id: GetSiteArgs,
+  //   @Args('category') category: string,
+  //   @Args('input') input: AddFeaturedInput,
+  // ) {
+  //   return this.siteService.addFeatured(id, category, input);
+  // }
+
+  // @Mutation(() => Site)
+  // updatePage(@Args() id: GetSiteArgs, @Args('input') input: CreatePageInput) {
+  //   return this.siteService.updatePage(id, input);
+  // }
+
+  // @Mutation(() => Site)
+  // // @UseGuards(GqlAuthGuard)
+  // addSection(
+  //   @Args() id: GetSiteArgs,
+  //   @Args('input') input: CreateSectionInput,
+  // ) {
+  //   return this.siteService.addSection(id, input);
+  // }
+
+  // @ResolveField()
+  // async wears(@Parent() parent: Site) {
+  //   return this.wearService.findBySiteId(parent._id);
+  // }
+
   // @Mutation(() => Site)
   // addSection(@Args('input') input: CreateSectionInput) {
   //   return this.siteService.addSection(input.domain, input.pageT, input);

@@ -1,4 +1,5 @@
 import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { request } from 'express';
 import { slug } from 'src/common/utils/function';
 import { CreateWearInput, GetWearArgs, UpdateWearInput } from '../dto';
 import { Wear, WearDocument } from '../entities';
@@ -8,6 +9,8 @@ import { WearRepository } from '../repository';
 export class WearService {
   constructor(private readonly wearRepository: WearRepository) {}
   async createWear(input: CreateWearInput) {
+    // const cookie = request.cookies('Authentication');
+    // console.log(cookie);
     // await this.validateProductData(input);
     await this.validateSlug(input);
     const dataDocument = await this.wearRepository.create(input);
